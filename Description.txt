@@ -1,0 +1,2 @@
+When meteostation gets new data it somehow calls our WeatherData's mesurementsChanged method.
+When it happens our WeatherData gets mesurements from meteostation to update mesurements.
