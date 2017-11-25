@@ -30,6 +30,7 @@ namespace Observer
         }
 
         public void mesurementsChanged() {
+            Console.WriteLine("Mesurements Changed");
             this.weatherData.mesurementsChanged();
         }
     }

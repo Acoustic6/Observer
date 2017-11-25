@@ -1,35 +1,46 @@
+using System.Collections.Generic;
 using Observer.Observers;
 
 namespace Observer.Observable
 {
-    public class WeatherData
+    public class WeatherData : IObservable
     {
         private Meteostation meteostation;
-        
-        private CurrentConditionDisplay currentConditionDisplay;
-        private ForecastDisplay forecastDisplay;
-        private StatisticsDisplay statisticsDisplay;
+        private List<IObserver> observers;
+        private int temperature;
+        private int humidity;
+        private int pressure;
 
         public WeatherData(Meteostation meteostation)
         {
-            this.currentConditionDisplay = new CurrentConditionDisplay();
-            this.forecastDisplay = new ForecastDisplay();
-            this.statisticsDisplay = new StatisticsDisplay();
-
             this.meteostation = meteostation;
             meteostation.setWeatherData(this);
-
+            this.observers = new List<IObserver>();
         }
 
         public void mesurementsChanged() 
         {
-            int temperature = this.getTemperature();
-            int humidity = this.getHumidity();
-            int pressure = this.getPressure();
+            temperature = this.getTemperature();
+            humidity = this.getHumidity();
+            pressure = this.getPressure();
+            this.notifyObservers();
+        }
 
-            currentConditionDisplay.Update(temperature, humidity, pressure);
-            forecastDisplay.Update(temperature, humidity, pressure);
-            statisticsDisplay.Update(temperature, humidity, pressure);
+        public void notifyObservers()
+        {
+            foreach(IObserver observer in this.observers) {
+                observer.Update(this.temperature, this.humidity, this.pressure);
+            }
+        }
+        
+        public void registerObserver(IObserver observer)
+        {
+            this.observers.Add(observer);
+        }
+
+        public void removeObserver(IObserver observer)
+        {
+            this.observers.Remove(observer);
         }
 
         private int getTemperature() {

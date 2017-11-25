@@ -1,2 +1,12 @@
-When meteostation gets new data it somehow calls our WeatherData's mesurementsChanged method.
-When it happens our WeatherData gets mesurements from meteostation to update mesurements.
+Programming in the way like 
+
+measurmentsChanged() {
+currentConditionDisplay.Update(temperature, humidity, pressure);
+forecastDisplay.Update(temperature, humidity, pressure);
+statisticsDisplay.Update(temperature, humidity, pressure);
+}
+
+we program using certain realization. Which does not let us to change displays 
+without making changes in measurmentsChanged() method.
+
+We are fixing it here.
