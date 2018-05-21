@@ -29,7 +29,7 @@ namespace Observer.Observable
         public void notifyObservers()
         {
             foreach(IObserver observer in this.observers) {
-                observer.Update(this.temperature, this.humidity, this.pressure);
+                observer.Update(this, new { OptionalInfo: 'optiaonalText'});
             }
         }
         

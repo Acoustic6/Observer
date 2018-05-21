@@ -27,11 +27,12 @@ namespace Observer.Observers
             this.weatherData = null;
         }
 
-        public void Update(int temp, int hum, int pres)
+        public void Update(IObservable observable, object additionalData)
         {
-            this.temperature = temp;
-            this.humidity = hum;
-            this.pressure = pres;
+            var weatherData = (WeatherData)observable;
+            this.temperature = weatherData.getTemperature();
+            this.humidity = weatherData.getHumidity();
+            this.pressure = weatherData.getPressure();
             this.Disaply();
         }
 

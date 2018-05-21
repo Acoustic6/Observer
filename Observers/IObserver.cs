@@ -5,7 +5,7 @@ namespace  Observer.Observers
 {
     public interface IObserver
     {
-        void Update(int temp, int humidity, int pressure);
+        void Update(IObservable observable, object eventArgs);
         void Subscribe(IObservable weatherData);
         void Unsubscribe();
     }
